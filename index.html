@@ -1,162 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Ha Thu's Corner</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ha Thu's Corner</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-    <style>
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(120deg, #ffd6ec, #e0ccff);
-            color: #333;
-        }
+<style>
 
-        header {
-            text-align: center;
-            padding: 60px 20px;
-            color: #5a4a6a;
-        }
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+    overflow-x: hidden;
+    background: linear-gradient(135deg, #ffd6ec, #e0ccff);
+}
 
-        header h1 {
-            font-size: 38px;
-            margin-bottom: 10px;
-        }
+/* ===== Background glowing blobs ===== */
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
 
-        /* Avatar */
-        .avatar {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 15px;
-            border: 4px solid white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            animation: float 3s ease-in-out infinite;
-        }
+.blob {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: #ffb6e6;
+    border-radius: 50%;
+    filter: blur(120px);
+    animation: move 20s infinite alternate;
+}
 
-        /* Floating animation */
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
+.blob2 {
+    background: #caa6ff;
+    top: 50%;
+    left: 60%;
+}
 
-        section {
-            margin: 20px;
-            padding: 25px;
-            border-radius: 15px;
-            background: white;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+@keyframes move {
+    from { transform: translate(0,0); }
+    to { transform: translate(100px, -100px); }
+}
 
-        /* Hover card */
-        section:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
+/* ===== Avatar ===== */
+.avatar {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    animation: float 3s ease-in-out infinite;
+    z-index: 10;
+}
 
-        h2 {
-            border-left: 4px solid #d291ff;
-            padding-left: 10px;
-            color: #6b4fa3;
-        }
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0); }
+}
 
-        .tag {
-            display: inline-block;
-            background: #f3d9ff;
-            color: #5a4a6a;
-            padding: 6px 10px;
-            border-radius: 15px;
-            margin: 5px;
-            font-size: 14px;
-            transition: transform 0.2s;
-        }
+/* ===== Layout ===== */
+header {
+    text-align: center;
+    padding: 80px 20px 40px;
+    color: #5a4a6a;
+}
 
-        .tag:hover {
-            transform: scale(1.1);
-        }
+header h1 {
+    font-size: 38px;
+}
 
-        .project {
-            margin-top: 15px;
-            padding: 15px;
-            background: #faf5ff;
-            border-radius: 10px;
-            transition: transform 0.3s;
-        }
+section {
+    max-width: 700px;
+    margin: 15px auto;
+    padding: 20px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.6);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
 
-        .project:hover {
-            transform: scale(1.03);
-        }
+/* Hover card */
+section:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
 
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #5a4a6a;
-            opacity: 0.7;
-        }
+h2 {
+    color: #6b4fa3;
+    margin-bottom: 10px;
+}
 
-        a {
-            color: #b06cff;
-            text-decoration: none;
-        }
+/* Skills */
+.tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.8);
+    padding: 6px 12px;
+    margin: 5px;
+    border-radius: 20px;
+    transition: 0.3s;
+}
 
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
+.tag:hover {
+    background: #e8cfff;
+    transform: scale(1.1);
+}
+
+/* Projects */
+.project {
+    background: rgba(255,255,255,0.8);
+    padding: 12px;
+    border-radius: 10px;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.project:hover {
+    transform: scale(1.03);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #5a4a6a;
+}
+
+/* Fade-in animation */
+section {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.8s forwards;
+}
+
+section:nth-child(2) { animation-delay: 0.2s; }
+section:nth-child(3) { animation-delay: 0.4s; }
+section:nth-child(4) { animation-delay: 0.6s; }
+section:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+</style>
 </head>
 
 <body>
 
-<header>
-    <!-- Avatar (m thay link ảnh của m vào đây) -->
-    <img src="https://i.pinimg.com/736x/8e/5c/6a/8e5c6a4e6f3c5a6c0f3b4a3e3b2f8b2d.jpg" class="avatar">
+<!-- Background -->
+<div class="bg">
+    <div class="blob"></div>
+    <div class="blob blob2"></div>
+</div>
 
+<!-- Avatar -->
+<img src="https://i.pinimg.com/736x/8e/5c/6a/8e5c6a4e6f3c5a6c0f3b4a3e3b2f8b2d.jpg" class="avatar">
+
+<header>
     <h1>Hi, I'm Ha Thu 🌸</h1>
-    <p>Finance student • just trying to survive uni and understand money</p>
+    <p>Finance student • just trying to figure things out</p>
 </header>
 
 <section>
     <h2>🧠 About Me</h2>
     <p>
-        I'm currently studying Finance & Banking. 
-        I’m interested in how money works, how people manage it, and how not to run out of it too quickly.
-    </p>
-    <p>
-        Still learning step by step, figuring things out as I go.
+        I'm studying Finance & Banking and learning how money works in real life.
+        Still exploring things step by step, nothing too serious yet.
     </p>
 </section>
 
 <section>
     <h2>💼 Skills</h2>
-    <div>
-        <span class="tag">Excel</span>
-        <span class="tag">SQL</span>
-        <span class="tag">Financial Analysis</span>
-        <span class="tag">Bond Valuation</span>
-        <span class="tag">Power BI (basic)</span>
-    </div>
+    <span class="tag">Excel</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Finance basics</span>
+    <span class="tag">Power BI</span>
 </section>
 
 <section>
     <h2>📊 Projects</h2>
 
     <div class="project">
-        <b>📈 Bond Valuation</b>
-        <p>Worked with Duration and Convexity to understand how bond prices react to interest rate changes.</p>
-        <a href="#">View project</a>
+        <b>Bond Valuation</b>
+        <p>Worked with Duration & Convexity to understand price changes.</p>
     </div>
 
     <div class="project">
-        <b>💰 Expense Tracking</b>
-        <p>Used Excel to track personal spending and get a clearer picture of where my money goes each month.</p>
-        <a href="#">View project</a>
+        <b>Expense Tracking</b>
+        <p>Tracked personal spending and realized some things 😭</p>
     </div>
 
 </section>
@@ -164,21 +209,17 @@
 <section>
     <h2>🎯 Interests</h2>
     <p>
-        - Music (mostly chill / sad playlists) 🎧<br>
-        - Watching random videos for longer than planned<br>
-        - Late-night thoughts about life<br>
-        - Coffee ☕
+        music • random videos • late-night thoughts • coffee
     </p>
 </section>
 
 <section>
     <h2>📬 Contact</h2>
-    <p>Email: your@email.com</p>
-    <p>GitHub: <a href="#">yourusername</a></p>
+    <p>your@email.com</p>
 </section>
 
 <footer>
-    <p>simple, soft, and still learning 🌷</p>
+    <p>✨ a little chaotic but still trying ✨</p>
 </footer>
 
 </body>
