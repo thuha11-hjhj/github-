@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Now Playing: My Life 🎧</title>
+<title>Now Playing 🎧</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -11,166 +11,177 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #1a1a2e, #3a0ca3);
-    color: white;
+    background: linear-gradient(135deg, #f7e8ff, #fdfcff);
+    color: #5a4a6a;
 }
 
-/* Container */
-.player {
-    max-width: 400px;
-    margin: 60px auto;
-    padding: 25px;
+/* Layout */
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+/* Card */
+.card {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(15px);
+    padding: 20px;
     border-radius: 20px;
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Player */
+.player {
+    grid-column: span 2;
     text-align: center;
 }
 
-/* Avatar album */
-.cover {
-    width: 200px;
-    height: 200px;
-    border-radius: 20px;
-    object-fit: cover;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    animation: float 4s ease-in-out infinite;
+/* Disc */
+.disc {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    margin: auto;
+    background: radial-gradient(circle, #fff 20%, #d9b3ff 60%, #a066ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: spin 6s linear infinite;
 }
 
-@keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0); }
+.disc img {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
 }
 
-h1 {
-    margin: 15px 0 5px;
-    font-size: 22px;
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
-p {
-    opacity: 0.7;
-    font-size: 14px;
-}
-
-/* Progress bar */
-.progress {
-    margin: 20px 0;
-}
-
+/* Progress */
 .bar {
-    width: 100%;
     height: 6px;
-    background: rgba(255,255,255,0.2);
+    background: #eee;
     border-radius: 10px;
+    margin: 15px 0;
     overflow: hidden;
 }
 
 .fill {
     height: 100%;
     width: 0%;
-    background: #ff4dff;
-    animation: progress 20s linear infinite;
+    background: #c084fc;
+    animation: progress 15s linear infinite;
 }
 
 @keyframes progress {
-    from { width: 0%; }
+    from { width: 0; }
     to { width: 100%; }
 }
 
-/* Time */
-.time {
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    opacity: 0.6;
+/* Section title */
+h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
 }
 
-/* Sections */
-.section {
-    text-align: left;
-    margin-top: 20px;
-}
-
-/* Playlist item */
+/* Items */
 .item {
     padding: 10px;
     border-radius: 10px;
-    margin: 8px 0;
+    margin: 6px 0;
     transition: 0.3s;
-    cursor: pointer;
+    background: #f9f3ff;
 }
 
 .item:hover {
-    background: rgba(255,255,255,0.1);
+    background: #ecd9ff;
+    transform: translateX(5px);
 }
 
-/* Footer */
-.footer {
-    margin-top: 20px;
-    font-size: 12px;
-    opacity: 0.6;
-    text-align: center;
+/* Images */
+.imgbox {
+    width: 100%;
+    height: 120px;
+    border-radius: 15px;
+    object-fit: cover;
+    margin-bottom: 10px;
 }
+
+/* Floating effect */
+.float {
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+    100% { transform: translateY(0); }
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="player">
+<div class="container">
 
-    <!-- Cover -->
-    <img src="https://i.pinimg.com/736x/8e/5c/6a/8e5c6a4e6f3c5a6c0f3b4a3e3b2f8b2d.jpg" class="cover">
+    <!-- Player -->
+    <div class="card player">
+        <div class="disc">
+            <img src="https://i.pinimg.com/736x/8e/5c/6a/8e5c6a4e6f3c5a6c0f3b4a3e3b2f8b2d.jpg">
+        </div>
 
-    <!-- Title -->
-    <h1>My Life 🎧</h1>
-    <p>by Ha Thu</p>
+        <h1>My Life 🎧</h1>
+        <p>by Ha Thu</p>
 
-    <!-- Progress -->
-    <div class="progress">
         <div class="bar">
             <div class="fill"></div>
-        </div>
-        <div class="time">
-            <span>0:00</span>
-            <span>∞</span>
         </div>
     </div>
 
     <!-- About -->
-    <div class="section">
-        <b>About</b>
+    <div class="card">
+        <img class="imgbox float" src="https://i.pinimg.com/736x/5f/0c/52/5f0c528ed6eab6c8fbe0b0a77a7bde0b.jpg">
+        <h2>About</h2>
         <p>
-            Finance & Banking student. 
-            Still figuring things out, one step at a time.
+            Finance & Banking student. Still learning and figuring things out step by step.
         </p>
     </div>
 
     <!-- Skills -->
-    <div class="section">
-        <b>Skills</b>
+    <div class="card">
+        <img class="imgbox float" src="https://i.pinimg.com/736x/63/9f/7d/639f7d7b5d78b8b1c08b5a69b6c68f21.jpg">
+        <h2>Skills</h2>
         <div class="item">Excel</div>
         <div class="item">SQL</div>
         <div class="item">Financial Analysis</div>
     </div>
 
-    <!-- Projects as playlist -->
-    <div class="section">
-        <b>Playlist</b>
-
+    <!-- Playlist -->
+    <div class="card">
+        <img class="imgbox float" src="https://i.pinimg.com/736x/71/2f/92/712f92c56b2e40a6c0a28b84c4e67f2b.jpg">
+        <h2>Playlist</h2>
         <div class="item">🎵 Bond Valuation</div>
         <div class="item">🎵 Expense Tracking</div>
-        <div class="item">🎵 Trying to manage money (still loading...)</div>
+        <div class="item">🎵 Still figuring life out...</div>
     </div>
 
     <!-- Contact -->
-    <div class="section">
-        <b>Contact</b>
+    <div class="card">
+        <img class="imgbox float" src="https://i.pinimg.com/736x/92/47/54/924754d47d0a6a3a8a4f54c16c3e6d3b.jpg">
+        <h2>Contact</h2>
         <p>your@email.com</p>
-    </div>
-
-    <div class="footer">
-        now playing: a slightly chaotic life 💜
     </div>
 
 </div>
