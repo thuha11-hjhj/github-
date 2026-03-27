@@ -11,26 +11,34 @@
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
-    background: linear-gradient(135deg, #f7e8ff, #fdfcff);
-    color: #5a4a6a;
+    transition: background 1s;
+    background: linear-gradient(135deg, #f7e8ff, #ffffff);
+    overflow-x: hidden;
 }
 
-/* Layout */
+/* particles */
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* layout */
 .container {
     max-width: 900px;
     margin: 40px auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 25px;
+    gap: 20px;
 }
 
-/* Card */
+/* card */
 .card {
     background: rgba(255,255,255,0.8);
     backdrop-filter: blur(15px);
     padding: 20px;
     border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     transition: 0.3s;
 }
 
@@ -38,70 +46,58 @@ body {
     transform: translateY(-5px);
 }
 
-/* Player */
+/* player */
 .player {
     grid-column: span 2;
     text-align: center;
 }
 
-/* Disc */
+/* disc */
 .disc {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
     border-radius: 50%;
     margin: auto;
     background: radial-gradient(circle, #fff 20%, #d9b3ff 60%, #a066ff);
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: spin 6s linear infinite;
 }
 
-.disc img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
+.spin {
+    animation: spin 5s linear infinite;
 }
 
 @keyframes spin {
-    from { transform: rotate(0deg); }
+    from { transform: rotate(0); }
     to { transform: rotate(360deg); }
 }
 
-/* Progress */
-.bar {
-    height: 6px;
-    background: #eee;
-    border-radius: 10px;
-    margin: 15px 0;
-    overflow: hidden;
+.disc img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
 }
 
-.fill {
-    height: 100%;
-    width: 0%;
+/* button */
+button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
     background: #c084fc;
-    animation: progress 15s linear infinite;
+    color: white;
+    cursor: pointer;
 }
 
-@keyframes progress {
-    from { width: 0; }
-    to { width: 100%; }
-}
-
-/* Section title */
-h2 {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-/* Items */
+/* list */
 .item {
     padding: 10px;
     border-radius: 10px;
-    margin: 6px 0;
-    transition: 0.3s;
     background: #f9f3ff;
+    margin: 6px 0;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
 .item:hover {
@@ -109,82 +105,133 @@ h2 {
     transform: translateX(5px);
 }
 
-/* Images */
-.imgbox {
-    width: 100%;
-    height: 120px;
-    border-radius: 15px;
-    object-fit: cover;
-    margin-bottom: 10px;
-}
-
-/* Floating effect */
-.float {
-    animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-6px); }
-    100% { transform: translateY(0); }
-}
-
 </style>
 </head>
 
 <body>
 
+<canvas id="bg"></canvas>
+
 <div class="container">
 
-    <!-- Player -->
-    <div class="card player">
-        <div class="disc">
-            <img src="https://i.pinimg.com/736x/8e/5c/6a/8e5c6a4e6f3c5a6c0f3b4a3e3b2f8b2d.jpg">
-        </div>
-
-        <h1>My Life 🎧</h1>
-        <p>by Ha Thu</p>
-
-        <div class="bar">
-            <div class="fill"></div>
-        </div>
+<div class="card player">
+    <div id="disc" class="disc spin">
+        <img id="cover" src="https://i.pinimg.com/736x/8e/5c/6a/8e5c6a4e6f3c5a6c0f3b4a3e3b2f8b2d.jpg">
     </div>
 
-    <!-- About -->
-    <div class="card">
-        <img class="imgbox float" src="https://i.pinimg.com/736x/5f/0c/52/5f0c528ed6eab6c8fbe0b0a77a7bde0b.jpg">
-        <h2>About</h2>
-        <p>
-            Finance & Banking student. Still learning and figuring things out step by step.
-        </p>
-    </div>
+    <h2 id="title">My Life 🎧</h2>
+    <p id="desc">Just figuring things out</p>
 
-    <!-- Skills -->
-    <div class="card">
-        <img class="imgbox float" src="https://i.pinimg.com/736x/63/9f/7d/639f7d7b5d78b8b1c08b5a69b6c68f21.jpg">
-        <h2>Skills</h2>
-        <div class="item">Excel</div>
-        <div class="item">SQL</div>
-        <div class="item">Financial Analysis</div>
-    </div>
+    <button onclick="toggle()">Play / Pause</button>
+</div>
 
-    <!-- Playlist -->
-    <div class="card">
-        <img class="imgbox float" src="https://i.pinimg.com/736x/71/2f/92/712f92c56b2e40a6c0a28b84c4e67f2b.jpg">
-        <h2>Playlist</h2>
-        <div class="item">🎵 Bond Valuation</div>
-        <div class="item">🎵 Expense Tracking</div>
-        <div class="item">🎵 Still figuring life out...</div>
-    </div>
+<div class="card">
+    <h3>Playlist</h3>
 
-    <!-- Contact -->
-    <div class="card">
-        <img class="imgbox float" src="https://i.pinimg.com/736x/92/47/54/924754d47d0a6a3a8a4f54c16c3e6d3b.jpg">
-        <h2>Contact</h2>
-        <p>your@email.com</p>
-    </div>
+    <div class="item" onclick="changeTrack(0)">🎵 About Me</div>
+    <div class="item" onclick="changeTrack(1)">🎵 Skills</div>
+    <div class="item" onclick="changeTrack(2)">🎵 Projects</div>
+    <div class="item" onclick="changeTrack(3)">🎵 Contact</div>
+</div>
+
+<div class="card">
+    <h3>Now Showing</h3>
+    <p id="content">
+        Finance & Banking student. Still learning step by step.
+    </p>
+</div>
 
 </div>
+
+<script>
+
+/* tracks */
+const tracks = [
+{
+    title: "About Me 🌸",
+    desc: "a short intro",
+    content: "I'm a Finance student trying to understand money and life.",
+    color: "linear-gradient(135deg,#ffd6ec,#ffffff)",
+    img: "https://i.pinimg.com/736x/5f/0c/52/5f0c528ed6eab6c8fbe0b0a77a7bde0b.jpg"
+},
+{
+    title: "Skills 💼",
+    desc: "what I can do",
+    content: "Excel • SQL • Financial Analysis",
+    color: "linear-gradient(135deg,#e0ccff,#ffffff)",
+    img: "https://i.pinimg.com/736x/63/9f/7d/639f7d7b5d78b8b1c08b5a69b6c68f21.jpg"
+},
+{
+    title: "Projects 📊",
+    desc: "things I've done",
+    content: "Bond valuation & expense tracking",
+    color: "linear-gradient(135deg,#f3d9ff,#ffffff)",
+    img: "https://i.pinimg.com/736x/71/2f/92/712f92c56b2e40a6c0a28b84c4e67f2b.jpg"
+},
+{
+    title: "Contact 📬",
+    desc: "reach me",
+    content: "your@email.com",
+    color: "linear-gradient(135deg,#ffe4f0,#ffffff)",
+    img: "https://i.pinimg.com/736x/92/47/54/924754d47d0a6a3a8a4f54c16c3e6d3b.jpg"
+}
+];
+
+function changeTrack(i){
+    document.getElementById("title").innerText = tracks[i].title;
+    document.getElementById("desc").innerText = tracks[i].desc;
+    document.getElementById("content").innerText = tracks[i].content;
+    document.body.style.background = tracks[i].color;
+    document.getElementById("cover").src = tracks[i].img;
+}
+
+/* play pause */
+let playing = true;
+function toggle(){
+    const disc = document.getElementById("disc");
+    playing = !playing;
+    disc.classList.toggle("spin");
+}
+
+/* particles */
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for(let i=0;i<60;i++){
+    particles.push({
+        x: Math.random()*canvas.width,
+        y: Math.random()*canvas.height,
+        r: Math.random()*2,
+        d: Math.random()*1
+    });
+}
+
+function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="rgba(200,150,255,0.5)";
+    particles.forEach(p=>{
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fill();
+    });
+    update();
+}
+
+function update(){
+    particles.forEach(p=>{
+        p.y -= p.d;
+        if(p.y<0) p.y = canvas.height;
+    });
+}
+
+setInterval(draw,30);
+
+</script>
 
 </body>
 </html>
